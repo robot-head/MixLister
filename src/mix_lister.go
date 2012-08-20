@@ -38,13 +38,14 @@ func main() {
 		if err != nil {
 			continue
 		}
-		buf := make([]byte, 100)
 		stop := false
 		for !stop {
+			buf := make([]byte, 100)
 			n, err := conn.Read(buf[0:])
 			if err != nil {
 				stop = true
 			}
+			fmt.Fprintf(conn, "HTTP/1.0 200 OK\r\n\r\n")
 			os.Stdout.Write(buf[0:n])
 		}
 		conn.Close()
